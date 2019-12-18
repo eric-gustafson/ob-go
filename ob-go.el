@@ -230,7 +230,14 @@ specifying a var of the same value."
     (when (symbolp val)
       (setq val (symbol-name val)))
     ;; TODO(pope): Handle tables and lists.
-    (format "var %S = %S" var val)))
+    (cond
+     ((stringp val)
+      (format "var %S = \`%s\n\`" var val)
+      )
+     (t
+      (format "var %S = %S" var val)))
+    )
+  )
 
 (provide 'ob-go)
 ;;; ob-go.el ends here
